@@ -20,6 +20,7 @@
 9. Run php artisan db:seed RolesSeeder
 10. Open a terminal in vs code an run php artisan serve;
 11. Open another terminal in vs code an run npm run dev;
+12. Rename in composer.json, ssr.jsx, app.jsx, app.php the project name;
 
 ### Roles
 
