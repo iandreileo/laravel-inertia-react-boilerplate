@@ -24,7 +24,7 @@
 
 ### Roles
 
-- Open database/seeders/RolesSeeder.php and set the roles;
+- Open database/seeders/RolesSeeder.php and set the roles & permissions;
 
 ### Menu
 
@@ -35,6 +35,6 @@
 
 - Add it to HandleInertiaRequests and destructure it in pages { given_param }
 
-## Disable functions for CPANEL
+### Disable functions for CPANEL
 
 php -d "disable_functions=" /path/to/composer install
