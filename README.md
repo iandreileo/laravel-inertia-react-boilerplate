@@ -8,7 +8,7 @@
 6. Run composer install in folder;
 7. Configure your app roles in RolesSeeder;
 8. Run php artisan migrate
-9. Run php artisan db:seed RolesSeeder
+9. Run php artisan db:seed
 10. Open a terminal in vs code an run php artisan serve;
 11. Open another terminal in vs code an run npm run dev;
 12. Rename in composer.json, ssr.jsx, app.jsx, app.php the project name;
@@ -29,3 +29,5 @@
 ### Disable functions for CPANEL
 
 php -d "disable_functions=" /path/to/composer install
+
+### Documentation

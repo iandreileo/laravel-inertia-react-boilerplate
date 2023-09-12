@@ -19,16 +19,12 @@ class RolesSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-
-
-        // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'Super-Admin']);
-
+        // Doc: Create roles
+        $role1 = Role::create(['name' => 'owner']);
         $role2 = Role::create(['name' => 'admin']);
-
         $role3 = Role::create(['name' => 'user']);
 
-        // Create an super-admin user
+        // Doc: Create default users and assign roles
         $user = \App\Models\User::factory()->create([
             'name' => 'Super-Admin',
             'email' => 'office@inntech.dev',
@@ -36,22 +32,18 @@ class RolesSeeder extends Seeder
         ]);
         $user->assignRole($role1);
 
-        // Create an admin user
         $user = \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.ro',
             'password' => 'admin'
         ]);
-
         $user->assignRole($role2);
 
-        // Create an employee user
         $user = \App\Models\User::factory()->create([
             'name' => 'Employee',
             'email' => 'employee@employee.ro',
             'password' => 'employee'
         ]);
-
         $user->assignRole($role3);
 
     }
