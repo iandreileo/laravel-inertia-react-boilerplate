@@ -58,7 +58,8 @@ class HandleInertiaRequests extends Middleware
                 if($request->user()) {
                     return $request->user()->getRoleNames();
                 }
-            },
+            }
+
         ]);
     }
 }

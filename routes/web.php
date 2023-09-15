@@ -45,7 +45,32 @@ Route::middleware('auth')->group(function () {
         return $request->user()->redirectToBillingPortal();
     })->name('billing-portal');
 
+    Route::get('/subscription-checkout', function (Request $request) {
+        return $request->user()
+            ->newSubscription('default', 'price_1NqcVaCOYw0FFWf28Ebr8lgG')
+            ->checkout([
+                'success_url' => route('subscription-success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('subscription-cancel'),
+            ]);
+    });
+
+    Route::get('/checkout-cancel', function () {
+        return redirect()->route('dashboard');
+    })->name('subscription-cancel');
+
+    Route::get('/checkout-success', function (Request $request) {
+        $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
+        
+        if($checkoutSession->payment_status === 'paid') {
+            // TODO: Create subscription
+
+        }
+     
+        return redirect()->route('dashboard');
+    })->name('subscription-success');
+
 });
+
 
 // Route::group(['middleware' => ['role:admin']], function () {
 //     Route::group([
