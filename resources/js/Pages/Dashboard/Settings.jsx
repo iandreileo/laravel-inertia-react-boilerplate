@@ -143,7 +143,11 @@ export default function Pricing({ auth, menu }) {
           <p className="mt-1 text-sm leading-6 text-gray-600">
             Manage your payment method and billing history
           </p>
-          <Button className="mt-4">Manage Billing</Button>
+          <Button className="mt-4">
+            <a href={route("billing-portal")} target="_blank">
+              Manage Billing
+            </a>
+          </Button>
         </div>
       </div>
     </AuthenticatedLayout>

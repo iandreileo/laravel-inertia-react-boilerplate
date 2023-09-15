@@ -6,7 +6,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +25,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 
 Route::middleware('auth')->group(function () {
@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', function() {
         return Inertia::render('Dashboard/Settings');
     })->name('settings');
+
+    Route::get('/billing-portal', function (Request $request) {
+        return $request->user()->redirectToBillingPortal();
+    })->name('billing-portal');
 
 });
 

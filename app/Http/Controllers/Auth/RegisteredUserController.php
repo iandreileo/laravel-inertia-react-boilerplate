@@ -46,6 +46,9 @@ class RegisteredUserController extends Controller
         // Asign role to user
         $user->assignRole('user');
 
+        // Create Stripe customer
+        $user->createAsStripeCustomer();
+
         event(new Registered($user));
 
         Auth::login($user);
