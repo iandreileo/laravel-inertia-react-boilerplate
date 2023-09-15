@@ -5,6 +5,8 @@ import TextInput from "@/Components/TextInput";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { Transition } from "@headlessui/react";
 import { Button } from "@/shadcn/ui/button";
+import { Label } from "@/shadcn/ui/label";
+import { Input } from "@/shadcn/ui/input";
 
 export default function UpdateProfileInformation({
   mustVerifyEmail,
@@ -39,32 +41,40 @@ export default function UpdateProfileInformation({
 
       <form onSubmit={submit} className="mt-6 space-y-6">
         <div>
-          <InputLabel htmlFor="name" value="Name" />
-
-          <TextInput
+          <Label className="sr-only" htmlFor="name">
+            Name
+          </Label>
+          <Input
             id="name"
-            className="mt-1 block w-full"
+            placeholder="Your name"
+            type="text"
+            autoCapitalize="none"
+            autoCorrect="off"
+            disabled={processing}
             value={data.name}
-            onChange={(e) => setData("name", e.target.value)}
-            required
             isFocused
-            autoComplete="name"
+            required
+            onChange={(e) => setData("name", e.target.value)}
           />
-
-          <InputError className="mt-2" message={errors.name} />
+          <InputError message={errors.name} className="mt-2" />
         </div>
 
         <div>
-          <InputLabel htmlFor="email" value="Email" />
+          <Label className="sr-only" htmlFor="email">
+            Email
+          </Label>
 
-          <TextInput
+          <Input
             id="email"
+            placeholder="Your email address"
             type="email"
-            className="mt-1 block w-full"
+            autoCapitalize="none"
+            autoCorrect="off"
+            disabled={processing}
             value={data.email}
-            onChange={(e) => setData("email", e.target.value)}
+            isFocused
             required
-            autoComplete="username"
+            onChange={(e) => setData("email", e.target.value)}
           />
 
           <InputError className="mt-2" message={errors.email} />
