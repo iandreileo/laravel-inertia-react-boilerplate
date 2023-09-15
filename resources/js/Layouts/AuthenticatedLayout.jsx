@@ -100,7 +100,7 @@ export default function AuthenticatedLayout({
                     </div>
                   </Transition.Child>
 
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-black px-6 pb-2 ring-1 ring-white/10">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-primary px-6 pb-2 ring-1 ring-white/10">
                     <div className="flex h-16 shrink-0 items-center">
                       <ApplicationLogo />
                     </div>
@@ -112,8 +112,8 @@ export default function AuthenticatedLayout({
                               href={item.href}
                               className={classNames(
                                 item.current
-                                  ? "bg-gray-800 text-white"
-                                  : "text-gray-400 hover:text-white hover:bg-gray-800",
+                                  ? "bg-white/20 text-white"
+                                  : "text-white/40 hover:bg-primary/20",
                                 "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                               )}
                             >
@@ -135,7 +135,7 @@ export default function AuthenticatedLayout({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-black lg:pb-4">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-primary lg:pb-4">
           <div className="flex h-16 shrink-0 items-center justify-center">
             <ApplicationLogo />
           </div>
@@ -150,8 +150,8 @@ export default function AuthenticatedLayout({
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-800 text-white"
-                              : "text-gray-400 hover:text-white hover:bg-gray-800",
+                              ? "bg-white/20 text-white"
+                              : "text-white/40 hover:text-white hover:bg-primary/20",
                             "group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold"
                           )}
                         >
@@ -246,7 +246,7 @@ export default function AuthenticatedLayout({
           </div>
 
           <main>
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6 ">
               {/* Main area */}
               <h1 className="text-4xl font-semibold text-gray-900">{header}</h1>
               <p className="text-lg text-gray-500">{description}</p>
