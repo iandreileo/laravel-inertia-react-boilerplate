@@ -31,3 +31,5 @@
 php -d "disable_functions=" /path/to/composer install
 
 ### Documentation
+
+Add webhook in Stripe;

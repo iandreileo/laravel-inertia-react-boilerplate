@@ -38,7 +38,11 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::get('/settings', function() {
-        return Inertia::render('Dashboard/Settings');
+        return Inertia::render('Dashboard/Settings', [
+            'plans' => config('stripe.plans'),
+            'subscriptions' => auth()->user()->subscriptions
+
+        ]);
     })->name('settings');
 
     Route::get('/billing-portal', function (Request $request) {
@@ -46,37 +50,23 @@ Route::middleware('auth')->group(function () {
     })->name('billing-portal');
 
     Route::get('/subscription-checkout', function (Request $request) {
-        return $request->user()
-            ->newSubscription('default', 'price_1NqcVaCOYw0FFWf28Ebr8lgG')
-            ->checkout([
-                'success_url' => route('subscription-success').'?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => route('subscription-cancel'),
-            ]);
-    });
+        // Get the id from the request
+        $plan = $request->get('plan');
 
-    Route::get('/checkout-cancel', function () {
-        return redirect()->route('dashboard');
-    })->name('subscription-cancel');
+        // Get the plan from the config
+        $plan_object = config('stripe.plans')[$plan];
 
-    Route::get('/checkout-success', function (Request $request) {
-        $checkoutSession = $request->user()->stripe()->checkout->sessions->retrieve($request->get('session_id'));
-        
-        if($checkoutSession->payment_status === 'paid') {
-            // TODO: Create subscription
-
+        if(!$plan) {
+            return redirect()->route('dashboard');
         }
-     
-        return redirect()->route('dashboard');
-    })->name('subscription-success');
+
+        return $request->user()
+            ->newSubscription($plan, $plan_object->id)
+            ->checkout();
+    })->name('subscription-checkout');
+
+   
 
 });
-
-
-// Route::group(['middleware' => ['role:admin']], function () {
-//     Route::group([
-//         'prefix' => 'admin'
-//     ],function () {
-
-// });
 
 require __DIR__ . '/auth.php';

@@ -25,6 +25,7 @@ import {
 } from "@/shadcn/ui/tooltip";
 import { Link } from "@inertiajs/react";
 import { classNames } from "@/lib/utils";
+import { Settings2Icon } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
@@ -32,7 +33,12 @@ const navigation = [
   { name: "Projects", href: "#", icon: FolderIcon, current: false },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
   { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+  {
+    name: "Settings",
+    href: route("settings"),
+    icon: Settings2Icon,
+    current: false,
+  },
 ];
 
 export default function AuthenticatedLayout({
