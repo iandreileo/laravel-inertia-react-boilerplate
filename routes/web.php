@@ -7,7 +7,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Controllers\FileController;
 /*
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -34,14 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function() {
-        return Inertia::render('Dashboard');
+        // get all files from current user
+        $files = auth()->user()->files;
+        return Inertia::render('Dashboard',
+        [
+            'files' => $files
+        ]);
     })->name('dashboard');
 
     Route::get('/settings', function() {
         return Inertia::render('Dashboard/Settings', [
             'plans' => config('stripe.plans'),
             'subscriptions' => auth()->user()->subscriptions
-
         ]);
     })->name('settings');
 
@@ -64,6 +70,28 @@ Route::middleware('auth')->group(function () {
             ->newSubscription($plan, $plan_object->id)
             ->checkout();
     })->name('subscription-checkout');
+
+    // Create new file
+    Route::post('/files', [FileController::class, 'create'])->name('files.create');
+
+    // chat/id
+    Route::get('/documents/{id}', function($id) {
+
+        // Get the file with the id from the current user
+        $file = auth()->user()->files()->where('id', $id)->first();
+
+        // If no file
+        if(!$file) {
+            // redirect inertia to dashboard
+            return redirect()->route('dashboard');
+        }
+
+        return Inertia::render('Chat', [
+            'file' => $file
+        ]);
+    })->name('documents.show');
+
+
 
    
 
