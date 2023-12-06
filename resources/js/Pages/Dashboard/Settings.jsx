@@ -16,7 +16,7 @@ function classNames(...classes) {
 
 export default function Pricing({ auth, menu, plans, subscriptions }) {
   const [frequency, setFrequency] = useState(frequencies[0]);
-  console.log(plans);
+  console.log(subscriptions);
 
   return (
     <AuthenticatedLayout user={auth.user} header="Settings" menu={menu}>
@@ -33,7 +33,7 @@ export default function Pricing({ auth, menu, plans, subscriptions }) {
               active until the end of your next billing cycle.
             </p>
             <div>
-              {subscriptions ? (
+              {subscriptions.length > 0 ? (
                 <div className="mt-4">
                   <div className="flex items-center">
                     <h3 className="mt-4 text-sm leading-5 text-gray-600">
@@ -67,16 +67,18 @@ export default function Pricing({ auth, menu, plans, subscriptions }) {
                       ? "ring-2 ring-primary"
                       : "ring-1 ring-gray-200",
                     "rounded-3xl p-8 xl:p-10 relative",
-                    subscriptions && subscriptions[0].name === tier.name
+                    subscriptions.length > 0 &&
+                      subscriptions[0].name === tier.name
                       ? "ring-2 ring-green-500 bg-green-50"
                       : "bg-white"
                   )}
                 >
-                  {subscriptions && subscriptions[0].name === tier.name && (
-                    <div className="ring-2 ring-green-500 bg-green-50 absolute top-0 left-0 w-full text-center py-1.5 px-4 rounded-3xl bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wide">
-                      Current plan
-                    </div>
-                  )}
+                  {subscriptions.length > 0 &&
+                    subscriptions[0].name === tier.name && (
+                      <div className="ring-2 ring-green-500 bg-green-50 absolute top-0 left-0 w-full text-center py-1.5 px-4 rounded-3xl bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wide">
+                        Current plan
+                      </div>
+                    )}
                   <div className="flex items-center justify-between gap-x-4">
                     <h3
                       id={tier.id}
@@ -104,7 +106,8 @@ export default function Pricing({ auth, menu, plans, subscriptions }) {
                       {frequency.priceSuffix}
                     </span>
                   </p>
-                  {subscriptions && subscriptions[0].name === tier.name ? (
+                  {subscriptions.length > 0 &&
+                  subscriptions[0].name === tier.name ? (
                     <a
                       href={route("billing-portal")}
                       // href="#"

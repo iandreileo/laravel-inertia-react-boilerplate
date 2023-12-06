@@ -1,5 +1,3 @@
-import FilesListing from "@/Components/Files/FilesListing";
-import UploadFile from "@/Components/Files/UploadFile";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import {
@@ -12,7 +10,7 @@ import {
 } from "@/shadcn/ui/dialog";
 import { Button } from "@/shadcn/ui/button";
 
-export default function Dashboard({ auth, roles, menu, files }) {
+export default function Dashboard({ auth, roles, menu }) {
   return (
     <AuthenticatedLayout user={auth.user} header="Dashboard" menu={menu}>
       <Head title="Dashboard" />
@@ -26,10 +24,8 @@ export default function Dashboard({ auth, roles, menu, files }) {
             <DialogTitle>Import a new document</DialogTitle>
             <DialogDescription>Upload your document.</DialogDescription>
           </DialogHeader>
-          <UploadFile />
         </DialogContent>
       </Dialog>
-      <FilesListing files={files} />
     </AuthenticatedLayout>
   );
 }
