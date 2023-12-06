@@ -7,7 +7,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Controllers\FileController;
 /*
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -19,12 +21,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // Redirect to login
+    return redirect()->route('login');
 })->name('home');
 
 
@@ -41,7 +39,6 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard/Settings', [
             'plans' => config('stripe.plans'),
             'subscriptions' => auth()->user()->subscriptions
-
         ]);
     })->name('settings');
 
@@ -64,7 +61,6 @@ Route::middleware('auth')->group(function () {
             ->newSubscription($plan, $plan_object->id)
             ->checkout();
     })->name('subscription-checkout');
-
    
 
 });
