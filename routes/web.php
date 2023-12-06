@@ -21,12 +21,8 @@ use App\Http\Controllers\FileController;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // Redirect to login
+    return redirect()->route('login');
 })->name('home');
 
 
