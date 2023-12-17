@@ -26,11 +26,21 @@ import {
 import { Link } from "@inertiajs/react";
 import { classNames } from "@/lib/utils";
 import { Settings2Icon } from "lucide-react";
+import MyWebsites from "@/Components/MyWebsites";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
+  {
+    name: "Widgets",
+    href: route("dashboard.widgets.index"),
+    icon: UsersIcon,
+    current: true,
+  },
+  {
+    name: "Websites",
+    href: route("dashboard.websites.index"),
+    icon: FolderIcon,
+    current: false,
+  },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
   { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
   {
@@ -200,6 +210,7 @@ export default function AuthenticatedLayout({
               <div className="relative flex flex-1"></div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 {/* Profile dropdown */}
+                <MyWebsites />
                 <Menu as="div" className="relative">
                   <Menu.Button className="-m-1.5 flex items-center p-1.5">
                     <span className="sr-only">Open user menu</span>

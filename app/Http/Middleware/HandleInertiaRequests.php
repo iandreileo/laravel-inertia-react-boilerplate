@@ -62,8 +62,12 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
-                
             ],
+            'websites' => function () use ($request) {
+                if($request->user()) {
+                    return $request->user()->sites;
+                }
+            },
 
         ]);
     }

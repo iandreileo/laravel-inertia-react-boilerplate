@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Organization;
 
 class RegisteredUserController extends Controller
 {
@@ -47,7 +48,28 @@ class RegisteredUserController extends Controller
         $user->assignRole('user');
 
         // Create Stripe customer
-        $user->createAsStripeCustomer();
+        // $user->createAsStripeCustomer();
+
+        // Create a default organization
+        $organization = Organization::create([
+            'name' => $request->name,
+            'owner_id' => $user->id,
+        ]);
+
+        // Create a default site
+        $organization->sites()->create([
+            'name' => $request->name,
+            'owner_id' => $user->id,
+            'domains' => json_encode([
+                'localhost',
+            ]),
+        ]);
+
+        // Set current organization and site
+        $user->current_organization_id = $organization->id;
+        $user->current_site_id = $organization->sites()->first()->id;
+        $user->save();
+
 
         event(new Registered($user));
 

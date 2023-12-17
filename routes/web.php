@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\WidgetController;
 /*
 
 |--------------------------------------------------------------------------
@@ -32,8 +33,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function() {
-        return Inertia::render('Dashboard');
+        // redirect to widgets
+        return redirect()->route('dashboard.widgets.index');
     })->name('dashboard');
+
+    Route::get('/websites', function() {
+        return Inertia::render('Dashboard/Websites');
+    })->name('dashboard.websites.index');
+
+    Route::get('/widgets', function() {
+
+        // Get widgets from database
+        $widgets = auth()->user()->getWidgetsAttribute();
+
+        return Inertia::render('Dashboard/Widgets/Index', [
+            'widgets' => $widgets
+        ]);
+    })->name('dashboard.widgets.index');
 
     Route::get('/settings', function() {
         return Inertia::render('Dashboard/Settings', [
@@ -61,8 +77,10 @@ Route::middleware('auth')->group(function () {
             ->newSubscription($plan, $plan_object->id)
             ->checkout();
     })->name('subscription-checkout');
-   
 
 });
+
+// POC
+Route::get('/widget-script/{id}', [WidgetController::class, 'generateScript'])->name('widget.script');
 
 require __DIR__ . '/auth.php';
