@@ -32,6 +32,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/editor', function() {
+        return Inertia::render('Editor/Index');
+    })->name('dashboard.editor.index');
+
+    Route::get('/render', function() {
+        return Inertia::render('Editor/Render', [
+            'content' => '{"ROOT":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":5,"background":"#eeeeee","data-cy":"root-container"},"displayName":"Container","custom":{},"hidden":false,"nodes":["TjMt1hKFla","K7apUSpvUk","x53LY6acdt","QTXfMXNQ4t"],"linkedNodes":{}},"TjMt1hKFla":{"type":{"resolvedName":"Text"},"isCanvas":false,"props":{"text":"Hello World"},"displayName":"Text","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}},"x53LY6acdt":{"type":{"resolvedName":"Form"},"isCanvas":true,"props":{"padding":20},"displayName":"Form","custom":{},"parent":"ROOT","hidden":false,"nodes":["MVD789PZF6","FddcSFqd9M"],"linkedNodes":{}},"QTXfMXNQ4t":{"type":{"resolvedName":"Form"},"isCanvas":true,"props":{"padding":20},"displayName":"Form","custom":{},"parent":"ROOT","hidden":false,"nodes":[],"linkedNodes":{}},"FddcSFqd9M":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":20},"displayName":"Container","custom":{},"parent":"x53LY6acdt","hidden":false,"nodes":[],"linkedNodes":{}},"MVD789PZF6":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":20},"displayName":"Container","custom":{},"parent":"x53LY6acdt","hidden":false,"nodes":[],"linkedNodes":{}},"K7apUSpvUk":{"type":{"resolvedName":"Container"},"isCanvas":true,"props":{"padding":20},"displayName":"Container","custom":{},"parent":"ROOT","hidden":false,"nodes":["SQBuN6tMyl"],"linkedNodes":{}},"SQBuN6tMyl":{"type":{"resolvedName":"Form"},"isCanvas":true,"props":{"padding":20},"displayName":"Form","custom":{},"parent":"K7apUSpvUk","hidden":false,"nodes":[],"linkedNodes":{}}}'
+        ]);
+    })->name('dashboard.editor.render');
+
     Route::get('/dashboard', function() {
         // redirect to widgets
         return redirect()->route('dashboard.widgets.index');

@@ -210,7 +210,7 @@ export default function AuthenticatedLayout({
               <div className="relative flex flex-1"></div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 {/* Profile dropdown */}
-                <MyWebsites />
+                {/* <MyWebsites /> */}
                 <Menu as="div" className="relative">
                   <Menu.Button className="-m-1.5 flex items-center p-1.5">
                     <span className="sr-only">Open user menu</span>
